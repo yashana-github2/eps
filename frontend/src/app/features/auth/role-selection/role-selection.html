@@ -1,0 +1,42 @@
+
+<div class="selection-container">
+
+  <div class="brand">
+    <div class="brand-logo">EMS</div>
+    <div class="brand-name">Employee Management System</div>
+  </div>
+
+  <mat-card class="selection-card">
+
+    <h1 class="card-heading">Access Management Portal</h1>
+    <p class="card-sub">Choose your login type to continue</p>
+
+    <div class="options">
+
+      <button class="option-btn admin-btn" (click)="goToAdmin()">
+        <div class="option-icon">
+          <mat-icon>admin_panel_settings</mat-icon>
+        </div>
+        <div class="option-text">
+          <span class="option-title">Admin</span>
+          <span class="option-desc">Manage users and access records</span>
+        </div>
+        <mat-icon class="option-arrow">arrow_forward</mat-icon>
+      </button>
+
+      <button class="option-btn user-btn" (click)="goToUser()">
+        <div class="option-icon">
+          <mat-icon>person</mat-icon>
+        </div>
+        <div class="option-text">
+          <span class="option-title">General User</span>
+          <span class="option-desc">View and request access to resources</span>
+        </div>
+        <mat-icon class="option-arrow">arrow_forward</mat-icon>
+      </button>
+
+    </div>
+
+  </mat-card>
+
+</div>
