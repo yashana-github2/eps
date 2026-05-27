@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap');
+
+$dark:      #1a1a2e;
+$success:   #1d9e75;
+$warning:   #ef9f27;
+$danger:    #e24b4a;
+$blue:      #185fa5;
+$radius:    12px;
+$sidebar-w: 60px;
+
+// ── Layout ───────────────────────────────────────────────
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  background: #f5f5f7;
+}
+
+// ── Sidebar ──────────────────────────────────────────────
+.sidebar {
+  position: fixed;
+  left: 0; top: 0;
+  width: $sidebar-w;
+  height: 100vh;
+  background: #fff;
+  border-right: 0.5px solid rgba(0,0,0,.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  gap: 6px;
+  z-index: 100;
+
+  .sidebar-logo {
+    width: 34px; height: 34px;
+    background: $dark;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 4px;
+  }
+
+  .nav-item {
+    width: 38px; height: 38px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(0,0,0,.35);
+    cursor: pointer;
+    border: none; background: transparent;
+    transition: background .15s, color .15s;
+    text-decoration: none;
+
+    mat-icon { font-size: 20px; width: 20px; height: 20px; }
+
+    &.active, &:hover {
+      background: #f0f0f4;
+      color: $dark;
+    }
+  }
+
+  .nav-logout {
+    margin-top: auto;
+    color: rgba($danger, .7);
+    &:hover { background: rgba($danger, .08); color: $danger; }
+  }
+}
+
+// ── Main ─────────────────────────────────────────────────
+.main-content {
+  margin-left: $sidebar-w;
+  padding: 28px 32px;
+  flex: 1;
+  max-width: 1200px;
+}
+
+// ── Topbar ───────────────────────────────────────────────
+.topbar {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+
+  .page-title {
+    font-size: 22px; font-weight: 600;
+    color: #111; letter-spacing: -.4px;
+    margin: 0;
+  }
+  .page-subtitle {
+    font-size: 13px; color: #888;
+    margin: 3px 0 0;
+  }
+}
+
+.topbar-right {
+  display: flex; align-items: center; gap: 12px;
+}
+
+.role-badge {
+  font-size: 11px; font-weight: 600;
+  padding: 4px 12px; border-radius: 20px;
+  background: $dark; color: #e8e8f0;
+  letter-spacing: .4px;
+}
+
+.user-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600; color: #fff;
+}
+
+.logout-btn {
+  font-size: 13px; font-weight: 500;
+  border-color: rgba(0,0,0,.15) !important;
+  color: #555 !important;
+  mat-icon { font-size: 16px; vertical-align: -3px; margin-right: 4px; }
+}
+
+// ── Stats ────────────────────────────────────────────────
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: #fff;
+  border: 0.5px solid rgba(0,0,0,.08);
+  border-radius: $radius;
+  padding: 18px 20px;
+  position: relative; overflow: hidden;
+
+  .stat-accent {
+    position: absolute; left: 0; top: 0;
+    width: 3px; height: 100%;
+    border-radius: 2px 0 0 2px;
+    &.accent-dark    { background: $dark; }
+    &.accent-success { background: $success; }
+    &.accent-warning { background: $warning; }
+    &.accent-danger  { background: $danger; }
+  }
+
+  .stat-label {
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: #888; margin-bottom: 10px;
+  }
+
+  .stat-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 28px; font-weight: 700;
+    color: #111; line-height: 1;
+  }
+
+  .stat-sub {
+    font-size: 11px; color: #aaa;
+    margin-top: 7px;
+  }
+}
+
+// ── Two-col ───────────────────────────────────────────────
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+// ── Cards ────────────────────────────────────────────────
+.dash-card {
+  background: #fff !important;
+  border: 0.5px solid rgba(0,0,0,.08) !important;
+  border-radius: $radius !important;
+  box-shadow: none !important;
+  padding: 20px 22px !important;
+}
+
+.card-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.card-title {
+  font-size: 14px; font-weight: 600;
+  color: #111; letter-spacing: -.2px;
+  display: flex; align-items: center; gap: 7px;
+  margin: 0;
+  .card-icon { font-size: 17px; color: #888; }
+}
+
+.card-meta {
+  font-size: 12px; color: #aaa;
+}
+
+// ── Profile ───────────────────────────────────────────────
+.profile-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 8px;
+}
+
+.profile-avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700; color: #fff;
+  margin-bottom: 10px;
+}
+
+.profile-name {
+  font-size: 16px; font-weight: 600; color: #111;
+}
+
+.profile-username {
+  font-size: 12px; color: #aaa; margin: 2px 0 8px;
+}
+
+.role-tag {
+  font-size: 10px; font-weight: 600;
+  padding: 3px 10px; border-radius: 10px;
+  margin-bottom: 16px;
+  &.tag-user  { background: rgba($blue,.1); color: $blue; }
+  &.tag-admin { background: rgba($dark,.1); color: $dark; }
+}
+
+.profile-fields {
+  width: 100%;
+  border-top: 0.5px solid rgba(0,0,0,.06);
+  padding-top: 14px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.profile-field {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #f8f8fb;
+  border-radius: 8px;
+}
+
+.field-label {
+  font-size: 12px; color: #888;
+  display: flex; align-items: center; gap: 5px;
+  .field-icon { font-size: 14px; }
+}
+
+.field-value {
+  font-size: 13px; font-weight: 500; color: #111;
+}
+
+// ── Add Form ──────────────────────────────────────────────
+.add-form {
+  display: flex; flex-direction: column; gap: 4px;
+  .full-width { width: 100%; }
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper { display: none; }
+  ::ng-deep .mat-mdc-text-field-wrapper { border-radius: 8px !important; }
+}
+
+.add-btn {
+  background: $dark !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  height: 40px;
+  margin-top: 4px;
+  mat-icon { font-size: 16px; margin-right: 4px; }
+}
+
+// ── Records Table ─────────────────────────────────────────
+.records-table {
+  width: 100%;
+  background: transparent !important;
+
+  th {
+    font-size: 10px !important; font-weight: 700 !important;
+    text-transform: uppercase; letter-spacing: .6px;
+    color: #aaa !important;
+    border-bottom: 0.5px solid rgba(0,0,0,.08) !important;
+    padding: 10px 14px !important;
+    background: transparent !important;
+  }
+
+  td {
+    font-size: 13px !important; color: #333 !important;
+    border-bottom: 0.5px solid rgba(0,0,0,.05) !important;
+    padding: 12px 14px !important;
+  }
+
+  tr:last-child td { border-bottom: none !important; }
+  tr:hover td { background: #fafafa; }
+}
+
+.status-chip {
+  display: inline-block;
+  padding: 3px 10px; border-radius: 12px;
+  font-size: 10px; font-weight: 700; letter-spacing: .4px;
+  &.chip-active  { background: #e6f9f3; color: #0f6e56; }
+  &.chip-pending { background: #fff3e0; color: #b45309; }
+  &.chip-revoked { background: #fdecea; color: #a32d2d; }
+}
