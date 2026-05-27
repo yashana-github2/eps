@@ -1,0 +1,100 @@
+EMPLOYEE MANAGEMENT SYSTEM
+================================
+
+TECH STACK
+-----------
+Frontend:
+- Angular 12+
+- Angular Material
+- TypeScript
+
+Backend:
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+
+
+FRONTEND SETUP
+---------------
+1. Open terminal
+2. Navigate to frontend folder
+
+cd frontend
+
+3. Install dependencies
+
+npm install
+
+4. Run Angular app
+
+ng serve
+
+Frontend runs on:
+http://localhost:4200
+
+
+BACKEND SETUP
+--------------
+1. Open terminal
+2. Navigate to backend folder
+
+cd backend
+
+3. Install dependencies
+
+npm install
+
+4. Create .env file
+
+MONGO_URI=your_mongodb_connection_string
+
+5. Run backend server
+
+node server.js
+
+Backend runs on:
+http://localhost:5000
+
+
+FEATURES
+---------
+- Role-based login
+- Admin dashboard
+- User dashboard
+- MongoDB persistence
+- User management
+- Access request workflow
+- Approve/Revoke access
+- Search and filter records
+- Snackbar notifications
+- Password visibility toggle
+- Smart role validation
+
+
+DEMO CREDENTIALS
+-----------------
+
+Admin Login:
+Username: alice.johnson
+Password: admin123
+
+User Login:
+Username: bob.smith
+Password: user123
+
+
+IMPORTANT
+-----------
+Do NOT upload:
+- node_modules
+- .env
+- .angular
+- dist
+
+Make sure .gitignore contains:
+
+node_modules
+.env
+.angular
+dist
