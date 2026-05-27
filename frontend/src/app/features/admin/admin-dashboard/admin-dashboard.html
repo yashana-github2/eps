@@ -1,0 +1,454 @@
+<div class="dashboard-container">
+
+  <div class="main-content">
+
+    <header class="topbar">
+
+      <div class="topbar-left">
+
+        <h1 class="page-title">
+          Admin dashboard
+        </h1>
+
+        <p class="page-subtitle">
+          Employee Management System
+        </p>
+
+      </div>
+
+      <div class="topbar-right">
+
+        <span class="role-badge">
+          {{ user?.role }}
+        </span>
+
+        <div class="user-avatar">
+          {{ ('' + (user?.name || '')) | slice:0:2 | uppercase }}
+        </div>
+
+        <button
+          mat-stroked-button
+          class="logout-btn"
+          (click)="logout()">
+
+          <mat-icon>logout</mat-icon>
+
+          Logout
+
+        </button>
+
+      </div>
+
+    </header>
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+
+        <div class="stat-accent accent-dark"></div>
+
+        <div class="stat-label">
+          Total users
+        </div>
+
+        <div class="stat-value">
+          {{ users.length || 0 }}
+        </div>
+
+        <div class="stat-sub">
+          Registered accounts
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <div class="stat-accent accent-success"></div>
+
+        <div class="stat-label">
+          Active access
+        </div>
+
+        <div class="stat-value">
+          {{ records.filter(r => r.status === 'Active').length }}
+        </div>
+
+        <div class="stat-sub">
+          Currently approved
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <div class="stat-accent accent-warning"></div>
+
+        <div class="stat-label">
+          Pending
+        </div>
+
+        <div class="stat-value">
+          {{ records.filter(r => r.status === 'Pending').length }}
+        </div>
+
+        <div class="stat-sub">
+          Awaiting review
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <div class="stat-accent accent-danger"></div>
+
+        <div class="stat-label">
+          Revoked
+        </div>
+
+        <div class="stat-value">
+          {{ records.filter(r => r.status === 'Revoked').length }}
+        </div>
+
+        <div class="stat-sub">
+          Access removed
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="two-col">
+
+      <mat-card class="dash-card">
+
+        <div class="card-header">
+
+          <h2 class="card-title">
+
+            <mat-icon class="card-icon">
+              person_add
+            </mat-icon>
+
+            Add user
+
+          </h2>
+
+        </div>
+
+        <div class="add-form">
+
+          <mat-form-field appearance="outline" class="full-width">
+
+            <mat-label>
+              Username
+            </mat-label>
+
+            <input
+              matInput
+              [(ngModel)]="newUser.username" />
+
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+
+            <mat-label>
+              Password
+            </mat-label>
+
+            <input
+              matInput
+              type="password"
+              [(ngModel)]="newUser.password" />
+
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+
+            <mat-label>
+              Role
+            </mat-label>
+
+            <mat-select [(ngModel)]="newUser.role">
+
+              <mat-option value="General User">
+                General User
+              </mat-option>
+
+              <mat-option value="Admin">
+                Admin
+              </mat-option>
+
+            </mat-select>
+
+          </mat-form-field>
+
+          <button
+            mat-flat-button
+            class="add-btn"
+            (click)="addUser()"
+            [disabled]="!newUser.username || !newUser.password">
+
+            <mat-icon>add</mat-icon>
+
+            Add user
+
+          </button>
+
+        </div>
+
+      </mat-card>
+
+      <mat-card class="dash-card">
+
+        <div class="card-header">
+
+          <h2 class="card-title">
+
+            <mat-icon class="card-icon">
+              group
+            </mat-icon>
+
+            Users
+
+          </h2>
+
+          <span class="card-meta">
+            {{ users.length }} total
+          </span>
+
+        </div>
+
+        <div class="users-list">
+
+          <div *ngFor="let u of users" class="user-row">
+
+            <div class="user-info">
+
+              <div
+                class="user-avatar-sm"
+                [ngClass]="u.role === 'Admin' ? 'av-dark' : 'av-blue'">
+
+                {{ ('' + (u.username || '')) | slice:0:2 | uppercase }}
+
+              </div>
+
+              <div>
+
+                <div class="user-name">
+                  {{ u.username }}
+                </div>
+
+                <span
+                  class="role-tag"
+                  [ngClass]="u.role === 'Admin' ? 'tag-admin' : 'tag-user'">
+
+                  {{ u.role }}
+
+                </span>
+
+              </div>
+
+            </div>
+
+            <button
+              mat-icon-button
+              class="delete-btn"
+              (click)="deleteUser(u._id)">
+
+              <mat-icon>
+                delete_outline
+              </mat-icon>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </mat-card>
+
+    </div>
+
+    <mat-card class="dash-card">
+
+      <div class="card-header">
+
+        <h2 class="card-title">
+
+          <mat-icon class="card-icon">
+            description
+          </mat-icon>
+
+          Access records
+
+        </h2>
+
+        <span class="card-meta">
+          {{ filteredRecords.length }} entries
+        </span>
+
+      </div>
+
+      <div class="filters-row">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+            Search employee
+          </mat-label>
+
+          <input
+            matInput
+            [(ngModel)]="searchTerm"
+            (input)="filterRecords()">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+            Status
+          </mat-label>
+
+          <mat-select
+            [(ngModel)]="selectedStatus"
+            (selectionChange)="filterRecords()">
+
+            <mat-option value="All">
+              All
+            </mat-option>
+
+            <mat-option value="Active">
+              Active
+            </mat-option>
+
+            <mat-option value="Pending">
+              Pending
+            </mat-option>
+
+            <mat-option value="Revoked">
+              Revoked
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+      </div>
+
+      <table
+        mat-table
+        [dataSource]="filteredRecords"
+        class="records-table">
+
+        <ng-container matColumnDef="username">
+
+          <th mat-header-cell *matHeaderCellDef>
+            User
+          </th>
+
+          <td mat-cell *matCellDef="let record">
+            {{ record.username }}
+          </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="resource">
+
+          <th mat-header-cell *matHeaderCellDef>
+            Resource
+          </th>
+
+          <td mat-cell *matCellDef="let record">
+            {{ record.resource }}
+          </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="accessLevel">
+
+          <th mat-header-cell *matHeaderCellDef>
+            Access level
+          </th>
+
+          <td mat-cell *matCellDef="let record">
+            {{ record.accessLevel }}
+          </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+
+          <th mat-header-cell *matHeaderCellDef>
+            Status
+          </th>
+
+          <td mat-cell *matCellDef="let record">
+
+            <span
+              class="status-chip"
+              [ngClass]="{
+                'chip-active': record.status === 'Active',
+                'chip-pending': record.status === 'Pending',
+                'chip-revoked': record.status === 'Revoked'
+              }">
+
+              {{ record.status }}
+
+            </span>
+
+          </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="recordActions">
+
+          <th mat-header-cell *matHeaderCellDef>
+            Actions
+          </th>
+
+          <td mat-cell *matCellDef="let record">
+
+            <div class="row-actions">
+
+              <button
+                mat-stroked-button
+                class="action-approve"
+                (click)="updateStatus(record, 'Active')">
+
+                Approve
+
+              </button>
+
+              <button
+                mat-stroked-button
+                class="action-revoke"
+                (click)="updateStatus(record, 'Revoked')">
+
+                Revoke
+
+              </button>
+
+            </div>
+
+          </td>
+
+        </ng-container>
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="recordColumns">
+        </tr>
+
+        <tr
+          mat-row
+          *matRowDef="let row; columns: recordColumns;">
+        </tr>
+
+      </table>
+
+    </mat-card>
+
+  </div>
+
+</div>
