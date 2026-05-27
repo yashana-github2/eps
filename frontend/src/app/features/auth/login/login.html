@@ -1,0 +1,144 @@
+
+<div class="login-container">
+
+  <div class="brand">
+    <div class="brand-logo">EMS</div>
+    <div class="brand-name">Employee Management System</div>
+  </div>
+
+  <mat-card class="login-card">
+
+    <div class="card-top">
+      <div class="lock-icon"><mat-icon>lock_outline</mat-icon></div>
+      <h2 class="card-heading">Welcome back</h2>
+      <p class="card-sub">Sign in to your account to continue</p>
+    </div>
+
+    <form
+  [formGroup]="loginForm"
+  (ngSubmit)="onLogin()">
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width">
+
+    <mat-label>
+      Username
+    </mat-label>
+
+    <mat-icon
+      matPrefix
+      class="field-prefix">
+
+      person_outline
+
+    </mat-icon>
+
+    <input
+      matInput
+      formControlName="username"
+      (blur)="validateRole()" />
+
+  </mat-form-field>
+
+  <p
+    class="role-warning"
+    *ngIf="roleMismatchMessage">
+
+    {{ roleMismatchMessage }}
+
+  </p>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width">
+
+    <mat-label>
+      Password
+    </mat-label>
+
+    <mat-icon
+      matPrefix
+      class="field-prefix">
+
+      lock_outline
+
+    </mat-icon>
+
+    <input
+      matInput
+      [type]="hidePassword ? 'password' : 'text'"
+      formControlName="password" />
+
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      (click)="hidePassword = !hidePassword">
+
+      <mat-icon>
+
+        {{
+          hidePassword
+            ? 'visibility_off'
+            : 'visibility'
+        }}
+
+      </mat-icon>
+
+    </button>
+
+  </mat-form-field>
+
+  <button
+    mat-flat-button
+    class="login-btn full-width"
+    type="submit"
+
+    [disabled]="
+  loading ||
+  loginForm.invalid ||
+  roleMismatchMessage.length > 0">
+
+    <mat-spinner
+      *ngIf="loading"
+      diameter="18"
+      class="btn-spinner">
+
+    </mat-spinner>
+
+    <span *ngIf="!loading">
+      Sign in
+    </span>
+
+    <span *ngIf="loading">
+      Signing in...
+    </span>
+
+  </button>
+
+  <div
+    *ngIf="errorMessage"
+    class="error-box">
+
+    <mat-icon class="error-icon">
+      error_outline
+    </mat-icon>
+
+    <span>
+      {{ errorMessage }}
+    </span>
+
+  </div>
+
+</form>
+    <div class="back-link">
+      <a routerLink="/">
+        <mat-icon class="back-icon">arrow_back</mat-icon>
+        Back to role selection
+      </a>
+    </div>
+
+  </mat-card>
+
+</div>
