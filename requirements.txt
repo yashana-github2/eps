@@ -82,5 +82,3 @@ Password: admin123
 User Login:
 Username: bob.smith
 Password: user123
-.angular
-dist
