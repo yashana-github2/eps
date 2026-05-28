@@ -82,3 +82,19 @@ Password: admin123
 User Login:
 Username: bob.smith
 Password: user123
+
+## Screenshots
+
+### Landing page
+![Role_Selection](screenshots/role_selection.png)
+
+### Login Page
+![Login](screenshots/login.png)
+
+### Admin Dashboard
+![Admin Dashboard](screenshots/admin_dashboard1.png)
+![Admin Dashboard](screenshots/admin_dashboard2.png)
+
+### User Dashboard
+![User Dashboard](screenshots/user_dashboard1.png)
+![User Dashboard](screenshots/user_dashboard2.png)
